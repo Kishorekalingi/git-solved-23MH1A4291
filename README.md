@@ -102,3 +102,6 @@ See the `/docs` folder and `/docs/ai-integration.md` for extended information.
 MIT License
 ## FAQ
 update
+
+## Checkpoint Progress
+Added new checkpoints to project.
