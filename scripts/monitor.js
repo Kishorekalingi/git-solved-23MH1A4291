@@ -29,6 +29,16 @@ const monitorConfig = {
 
 const config = monitorConfig[ENV];
 
+// 🕒 Added uptime tracker feature
+let startTime = Date.now();
+
+function getUptime() {
+  const seconds = Math.floor((Date.now() - startTime) / 1000);
+  const mins = Math.floor(seconds / 60);
+  const secs = seconds % 60;
+  return `${mins}m ${secs}s`;
+}
+
 console.log("================================================");
 console.log(`DevOps Simulator - Monitor (${ENV.toUpperCase()} MODE)`);
 if (ENV === "experimental") {
@@ -48,31 +58,24 @@ function predictFutureMetrics() {
 
   console.log(`📊 Predicted metrics in ${config.predictiveWindow}s:`);
   console.log(
-    `   CPU: ${prediction.cpu.toFixed(2)}% (confidence: ${
-      prediction.confidence
-    }%)`
+    `   CPU: ${prediction.cpu.toFixed(2)}% (confidence: ${prediction.confidence}%)`
   );
   console.log(
-    `   Memory: ${prediction.memory.toFixed(2)}% (confidence: ${
-      prediction.confidence
-    }%)`
+    `   Memory: ${prediction.memory.toFixed(2)}% (confidence: ${prediction.confidence}%)`
   );
   console.log(
-    `   Traffic: ${prediction.traffic.toFixed(0)} req/s (confidence: ${
-      prediction.confidence
-    }%)`
+    `   Traffic: ${prediction.traffic.toFixed(0)} req/s (confidence: ${prediction.confidence}%)`
   );
 
   if (prediction.cpu > config.alertThreshold) {
-    console.log(
-      "⚠️  PREDICTIVE ALERT: High CPU expected - Pre-scaling initiated"
-    );
+    console.log("⚠️  PREDICTIVE ALERT: High CPU expected - Pre-scaling initiated");
   }
 }
 
 function checkSystemHealth() {
   const timestamp = new Date().toISOString();
   console.log(`\n[${timestamp}] === SYSTEM HEALTH CHECK ===`);
+  console.log(`Uptime: ${getUptime()}`); // 🕒 Added uptime output
 
   // Basic system metrics
   const cpu = Math.random() * 100;
@@ -105,4 +108,3 @@ function checkSystemHealth() {
 console.log(`\nMonitoring interval: ${config.interval}ms`);
 setInterval(checkSystemHealth, config.interval);
 checkSystemHealth();
-git;
