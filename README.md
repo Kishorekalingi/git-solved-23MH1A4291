@@ -105,3 +105,4 @@ update
 
 ## Checkpoint Progress
 Added new checkpoints to project.
+- Progress: 80% completed
